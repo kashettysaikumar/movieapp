@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'package:movieapp/utils.dart';
 
+import '../model/movie_rec_model.dart';
 import '../model/search_model.dart';
 import '../model/upcoming_model.dart';
 import 'package:http/http.dart'as http;
@@ -56,6 +57,18 @@ class ApiServices {
       return SearchModel.fromJson(jsonDecode(response.body));
     }
     throw Exception("Failed to load searched movie");
+  }
+
+  Future<MovieRecommendationModel> getPopularMovies() async {
+    endpoint = 'movie/popular';
+    final url = '$baseUrl$endpoint$key';
+
+    final response = await http.get(Uri.parse(url), headers: {});
+    if (response.statusCode == 200) {
+      log('success');
+      return MovieRecommendationModel.fromJson(jsonDecode(response.body));
+    }
+    throw Exception('failed to load now playing movies');
   }
 
 }
