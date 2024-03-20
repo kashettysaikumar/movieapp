@@ -16,7 +16,8 @@ packages used:
      cached_network_image: ^3.0.
 
 
-     ![screenshot](Screenshot_20240320_145540.png)
+     ![splach screen](https://github.com/kashettysaikumar/movieapp/assets/95699935/98e8c8ee-d796-4ae8-ba4c-3f5b861ad695)
+
      
 )
 
