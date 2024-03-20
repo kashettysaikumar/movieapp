@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:movieapp/Screens/movie_details_screen.dart';
 import 'package:movieapp/model/movie_rec_model.dart';
 import 'package:movieapp/model/search_model.dart';
 import 'package:movieapp/services_api/api_services.dart';
@@ -31,8 +32,8 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   void initState() {
-    super.initState();
     populatMovies=apiServices.getPopularMovies();
+    super.initState();
   }
 
   @override
@@ -72,7 +73,6 @@ class _SearchScreenState extends State<SearchScreen> {
             FutureBuilder(
                future: populatMovies,
                builder: (context, snapshort) {
-
                  var data = snapshort.data?.results;
                  if(data == null){
                    return Center(
@@ -98,28 +98,35 @@ class _SearchScreenState extends State<SearchScreen> {
                        shrinkWrap: true,
                        physics: NeverScrollableScrollPhysics(),
                        itemBuilder: (context, index) {
-                         return Container(
-                           height: 170,
-                           padding: EdgeInsets.all(10),
-                           decoration: BoxDecoration(
-                             borderRadius: BorderRadius.circular(20),
-                           ),
-                           child:
-                           Row(
-                             children: [
-                               SizedBox(width: 15),
-                               Image.network("$imageUrl${data[index].posterPath}"),
-                               SizedBox(width: 20),
-                               SizedBox(
-                                 height: 300,
-                                 child: Container(
-                                   alignment: Alignment.center,
-                                   child: Text(data[index].title,
-                                   maxLines: 2,
-                                   overflow: TextOverflow.ellipsis,),
-                                 ),
-                               )
-                             ],
+                         return InkWell(
+                           onTap: (){
+                             Navigator.push(context, MaterialPageRoute(builder: (context)=> MovieDetailScreen (movieId: data[index].id,),
+                             ),
+                             );
+                           },
+                           child: Container(
+                             height: 170,
+                             padding: EdgeInsets.all(10),
+                             decoration: BoxDecoration(
+                               borderRadius: BorderRadius.circular(20),
+                             ),
+                             child:
+                             Row(
+                               children: [
+                                 SizedBox(width: 15),
+                                 Image.network("$imageUrl${data[index].posterPath}"),
+                                 SizedBox(width: 20),
+                                 SizedBox(
+                                   height: 300,
+                                   child: Container(
+                                     alignment: Alignment.center,
+                                     child: Text(data[index].title,
+                                     maxLines: 2,
+                                     overflow: TextOverflow.ellipsis,),
+                                   ),
+                                 )
+                               ],
+                             ),
                            ),
                          );
                        },

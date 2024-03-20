@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'package:movieapp/model/movie_details_screen.dart';
 import 'package:movieapp/utils.dart';
 
 import '../model/movie_rec_model.dart';
@@ -59,16 +60,45 @@ class ApiServices {
     throw Exception("Failed to load searched movie");
   }
 
+  // popular movies in  search screen
+
   Future<MovieRecommendationModel> getPopularMovies() async {
     endpoint = 'movie/popular';
     final url = '$baseUrl$endpoint$key';
-
     final response = await http.get(Uri.parse(url), headers: {});
+    if (response.statusCode == 200) {
+      log('popular movies success');
+      return MovieRecommendationModel.fromJson(jsonDecode(response.body));
+    }
+    throw Exception('failed to load popular movies');
+  }
+
+  Future<MovieRecommendationModel> getMovieRecommendations(int movieId) async {
+    endpoint = 'movie/$movieId/recommendations';
+    final url = '$baseUrl$endpoint$key';
+
+    final response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       log('success');
       return MovieRecommendationModel.fromJson(jsonDecode(response.body));
     }
-    throw Exception('failed to load now playing movies');
+    throw Exception('failed to load  movie details');
+  }
+
+ //details of movies
+
+  Future<MovieDetailModel>getMovieDetails(int movieId) async {
+    endpoint = 'movie/$movieId';
+    final url = '$baseUrl$endpoint$key';
+
+    final response = await http.get(
+       Uri.parse(url),
+    );
+        if (response.statusCode == 200) {
+      log(' movie details success');
+      return MovieDetailModel.fromJson(jsonDecode(response.body));
+    }
+    throw Exception('failed to load details movies');
   }
 
 }
