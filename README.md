@@ -1,4 +1,4 @@
-# movieapp
+# Movie App
 Find The Popular,upcoming movies with this Movie App. 
 The app contains all information about movies.search all Movies,You can also information like title and posters some more information about that movie.
 
@@ -17,7 +17,9 @@ App Features:
      Search Functionality
 
 packages used:
+
      http: ^1.1.0
+     
      cached_network_image: ^3.0.
 
 
