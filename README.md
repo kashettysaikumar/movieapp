@@ -23,12 +23,10 @@ packages used:
      cached_network_image: ^3.0.
 
 
-![Screenshot_20240320_163505]
-(https://github.com/kashettysaikumar/movieapp/assets/95699935/9943f46d-0ffa-4bea-b9ea-4aa5f040668a)
+![Screenshot_20240320_163505](https://github.com/kashettysaikumar/movieapp/assets/95699935/9943f46d-0ffa-4bea-b9ea-4aa5f040668a)
 
 
-![Screenshot_20240320_145540]
-(https://github.com/kashettysaikumar/movieapp/assets/95699935/97fd2803-13eb-4899-adbe-c6eb688efbac)
+![Screenshot_20240320_145540](https://github.com/kashettysaikumar/movieapp/assets/95699935/97fd2803-13eb-4899-adbe-c6eb688efbac)
 
 
 
