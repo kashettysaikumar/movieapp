@@ -22,12 +22,9 @@ packages used:
      
      cached_network_image: ^3.0.
 
+![Screenshot_20240320_163505](https://github.com/kashettysaikumar/movieapp/assets/95699935/842d8d0e-4723-41cb-896d-2d27a22c70c5)
 
      
-
-
-     
-)
 
 
 
