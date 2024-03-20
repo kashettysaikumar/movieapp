@@ -22,8 +22,14 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState(){
     super.initState();
-    upcomingFuture=apiServices.getUpcomingMovies();
-    NowplayingMovies=apiServices.getUpcomingMovies();
+    netWorkcalls();
+  }
+
+  void netWorkcalls(){
+    setState(() {
+      upcomingFuture=apiServices.getUpcomingMovies();
+      NowplayingMovies=apiServices.getUpcomingMovies();
+    });
   }
 
   @override

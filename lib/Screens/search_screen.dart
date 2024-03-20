@@ -1,11 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:movieapp/Screens/movie_details_screen.dart';
-import 'package:movieapp/model/movie_rec_model.dart';
-import 'package:movieapp/model/search_model.dart';
-import 'package:movieapp/services_api/api_services.dart';
-import 'package:movieapp/utils.dart';
+
+import '../model/movie_rec_model.dart';
+import '../model/search_model.dart';
+import '../services_api/api_services.dart';
+import '../utils.dart';
+import 'movie_details_screen.dart';
+
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -15,157 +17,197 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  TextEditingController searchController = TextEditingController();
   ApiServices apiServices = ApiServices();
-
-  late Future<MovieRecommendationModel> populatMovies;
-
-  SearchModel? searchModel;
+  TextEditingController searchController = TextEditingController();
+  SearchModel? searchedMovie;
+  late Future<MovieRecommendationModel> popularMovies;
 
   void search(String query) {
     apiServices.getSearchMovie(query).then((results) {
       setState(() {
-        searchModel = results;
+        searchedMovie = results;
       });
     });
   }
 
   @override
   void initState() {
-    populatMovies=apiServices.getPopularMovies();
+    popularMovies = apiServices.getPopularMovies();
     super.initState();
   }
 
   @override
   void dispose() {
-    searchController.dispose();
     super.dispose();
+    searchController.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: SingleChildScrollView(
+    return Scaffold(
+      body: SafeArea(
+        child: SingleChildScrollView(
           child: Column(
-          children: [
-            CupertinoSearchTextField(
-              padding: EdgeInsets.all(15),
-              controller: searchController,
-              prefixIcon: Icon(
-                Icons.search,
-                color: Colors.grey,
+            children: [
+              const SizedBox(
+                height: 10,
               ),
-              suffixIcon: Icon(
-                Icons.cancel,
-                color: Colors.grey,
+              CupertinoSearchTextField(
+                controller: searchController,
+                padding: const EdgeInsets.all(10.0),
+                prefixIcon: const Icon(
+                  CupertinoIcons.search,
+                  color: Colors.grey,
+                ),
+                suffixIcon: const Icon(
+                  Icons.cancel,
+                  color: Colors.grey,
+                ),
+                style: const TextStyle(color: Colors.white),
+                backgroundColor: Colors.grey.withOpacity(0.3),
+                onChanged: (value) {
+                  if (value.isEmpty) {} else {
+                    search(searchController.text);
+                  }
+                },
               ),
-              style: TextStyle(color: Colors.black),
-              backgroundColor: Colors.blue.withOpacity(0.3),
-              onChanged: (value) {
-                if (value.isEmpty) {
-                } else {
-                  search(searchController.text);
-                }
-              },
-            ),
-            searchController.text.isEmpty?
-            FutureBuilder(
-               future: populatMovies,
-               builder: (context, snapshort) {
-                 var data = snapshort.data?.results;
-                 if(data == null){
-                   return Center(
-                     child: CircularProgressIndicator(),
-                   );
-                 }
-                 return Column(
-                   crossAxisAlignment: CrossAxisAlignment.start,
-                   children: [
-                     SizedBox(height: 30),
-                     Text(
-                       "Popular Movies ",
-                       style: TextStyle(
-                         fontSize: 25,
-                         fontWeight: FontWeight.bold,
-                       ),
-                     ),
-                     SizedBox(height: 10),
-                     ListView.builder(
-                       padding: EdgeInsets.all(5),
-                       itemCount: data!.length,
-                       scrollDirection: Axis.vertical,
-                       shrinkWrap: true,
-                       physics: NeverScrollableScrollPhysics(),
-                       itemBuilder: (context, index) {
-                         return InkWell(
-                           onTap: (){
-                             Navigator.push(context, MaterialPageRoute(builder: (context)=> MovieDetailScreen (movieId: data[index].id,),
-                             ),
-                             );
-                           },
-                           child: Container(
-                             height: 170,
-                             padding: EdgeInsets.all(10),
-                             decoration: BoxDecoration(
-                               borderRadius: BorderRadius.circular(20),
-                             ),
-                             child:
-                             Row(
-                               children: [
-                                 SizedBox(width: 15),
-                                 Image.network("$imageUrl${data[index].posterPath}"),
-                                 SizedBox(width: 20),
-                                 SizedBox(
-                                   height: 300,
-                                   child: Container(
-                                     alignment: Alignment.center,
-                                     child: Text(data[index].title,
-                                     maxLines: 2,
-                                     overflow: TextOverflow.ellipsis,),
-                                   ),
-                                 )
-                               ],
-                             ),
-                           ),
-                         );
-                       },
-                     ),
-                   ],
-                 );
-               }
-           ):
-           searchModel==null?
-               SizedBox.shrink()
-            :GridView.builder(
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              itemCount: searchModel?.results.length,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3,
-                mainAxisSpacing: 15,
-                crossAxisSpacing: 5,
-                childAspectRatio: 1.2/2),
-              itemBuilder: (context,index){
-                return Column(
-                  children: [
-                    searchModel!.results[index].backdropPath==null?Image.asset("assets/movie.jpg",height: 170,)
-                    :CachedNetworkImage(imageUrl: "$imageUrl${searchModel!.results[index].backdropPath}",
-                    height: 170),
-                    SizedBox(
-                      width:100,
-                      child: Text(searchModel!.results[index].originalTitle,
-                      maxLines: 2,
-                      overflow:TextOverflow.ellipsis,
-                      style: TextStyle(fontSize:14),),
-                    )
-                  ],
-                );
-              },
-              ),
-          ],
+              searchController.text.isEmpty
+                  ? FutureBuilder<MovieRecommendationModel>(
+                future: popularMovies,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    var data = snapshot.data?.results;
+                    return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          const Text(
+                            "Top Searches",
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          ListView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            // padding: const EdgeInsets.all(3),
+                            scrollDirection: Axis.vertical,
+                            itemCount: data!.length,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            MovieDetailScreen(
+                                              movieId: data[index].id,
+                                            ),
+                                      ),
+                                    );
+                                  },
+                                  child: Container(
+                                    height: 120,
+                                    decoration: BoxDecoration(
+                                        borderRadius:
+                                        BorderRadius.circular(20)),
+                                    child: Row(
+                                      children: [
+                                        Image.network(
+                                          '$imageUrl${data[index].posterPath}',
+                                          fit: BoxFit.fitHeight,
+                                        ),
+                                        const SizedBox(
+                                          width: 20,
+                                        ),
+                                        Text(data[index].title)
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                          )
+                        ]);
+                  } else {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                },
+              )
+                  : searchedMovie == null
+                  ? const SizedBox.shrink()
+                  : GridView.builder(
+                padding: EdgeInsets.zero,
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: searchedMovie?.results.length,
+                gridDelegate:
+                const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                  mainAxisSpacing: 15,
+                  crossAxisSpacing: 5,
+                  childAspectRatio: 1.2 / 2,
+                ),
+                itemBuilder: (context, index) {
+                  return searchedMovie!.results[index].backdropPath ==
+                      null
+                      ? Column(
+                    children: [
+                      Image.asset(
+                        "assets/netflix.png",
+                        height: 170,
+                      ),
+                      Text(
+                        searchedMovie!.results[index].title,
+                        maxLines: 2,
+                        style: const TextStyle(
+                          fontSize: 14,
+                        ),
+                      )
+                    ],
+                  )
+                      : Column(
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  MovieDetailScreen(
+                                      movieId: searchedMovie!
+                                          .results[index].id),
+                            ),
+                          );
+                        },
+                        child: CachedNetworkImage(
+                          imageUrl:
+                          '$imageUrl${searchedMovie?.results[index]
+                              .backdropPath}',
+                          height: 170,
+                        ),
+                      ),
+                      Text(
+                        searchedMovie!.results[index].title,
+                        maxLines: 2,
+                        style: const TextStyle(
+                          fontSize: 14,
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              )
+            ],
+          ),
         ),
-      ),
       ),
     );
   }

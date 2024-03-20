@@ -43,10 +43,8 @@ class MovieDetailScreenState extends State<MovieDetailScreen> {
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               final movie = snapshot.data;
-
               String genresText =
               movie!.genres.map((genre) => genre.name).join(', ');
-
               return Column(
                 children: [
                   Stack(
@@ -78,7 +76,7 @@ class MovieDetailScreenState extends State<MovieDetailScreen> {
                   ),
                   Padding(
                     padding:
-                    const EdgeInsets.only(top: 25, left: 10, right: 10),
+                    EdgeInsets.only(top: 25, left: 10, right: 10),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
