@@ -18,6 +18,9 @@ packages used:
 
      ![splach screen](https://github.com/kashettysaikumar/movieapp/assets/95699935/98e8c8ee-d796-4ae8-ba4c-3f5b861ad695)
 
+     ![Screenshot_20240320_163505](https://github.com/kashettysaikumar/movieapp/assets/95699935/1129ba1f-5361-4ef2-9de1-1ac5add31eea)
+
+
      
 )
 
