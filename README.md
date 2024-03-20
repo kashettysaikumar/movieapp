@@ -1,6 +1,39 @@
-# movieapp
+# Movie App
+Find The Popular,upcoming movies with this Movie App. 
+The app contains all information about movies.search all Movies,You can also information like title and posters some more information about that movie.
 
-A new Flutter project.
+Tool I used is Android studio
+
+Dart Programming Language 
+
+This project uses the TMDB API to fetch a list of movies,
+
+App Features:
+
+     Splach Screen
+     
+     Home Screen
+     
+     Search Functionality
+
+packages used:
+
+     http: ^1.1.0
+     
+     cached_network_image: ^3.0.
+
+
+![Untitled presentation](https://github.com/kashettysaikumar/movieapp/assets/95699935/44790cde-5426-4d0a-b107-3a2e5b6e140a)
+
+
+
+
+
+
+
+     
+
+
 
 ## Getting Started
 
