@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movieapp/Screens/Home_screen.dart';
 import 'package:movieapp/Screens/bottom_nav.dart';
+import 'package:movieapp/Screens/splach_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: BottomNavBar(),
+      home: SplachScreen(),
     );
   }
 }

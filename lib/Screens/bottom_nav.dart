@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:movieapp/Screens/New_screen.dart';
+import 'package:movieapp/Screens/Home_screen.dart';
 import 'package:movieapp/Screens/search_screen.dart';
 
+import 'New_screen.dart';
 
-import 'Home_screen.dart';
 
 class BottomNavBar extends StatelessWidget {
   const BottomNavBar({super.key});
@@ -41,7 +41,6 @@ class BottomNavBar extends StatelessWidget {
             HomeScreen(),
             SearchScreen(),
             NewScreen(),
-
           ],
         ),
       ),
