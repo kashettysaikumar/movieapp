@@ -3,12 +3,17 @@ Find The Popular,upcoming movies with this Movie App.
 The app contains all information about movies.search all Movies,You can also information like title and posters some more information about that movie.
 
 Tool I used is Android studio
+
 Dart Programming Language 
+
 This project uses the TMDB API to fetch a list of movies,
 
 App Features:
+
      Splach Screen
+     
      Home Screen
+     
      Search Functionality
 
 packages used:
@@ -16,9 +21,7 @@ packages used:
      cached_network_image: ^3.0.
 
 
-     ![splach screen](https://github.com/kashettysaikumar/movieapp/assets/95699935/98e8c8ee-d796-4ae8-ba4c-3f5b861ad695)
-
-     ![Screenshot_20240320_163505](https://github.com/kashettysaikumar/movieapp/assets/95699935/1129ba1f-5361-4ef2-9de1-1ac5add31eea)
+     
 
 
      
