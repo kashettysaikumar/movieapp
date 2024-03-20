@@ -50,7 +50,7 @@ class MovieDetailScreenState extends State<MovieDetailScreen> {
                   Stack(
                     children: [
                       Container(
-                        height: size.height * 0.4,
+                        height: size.height * 0.5,
                         decoration: BoxDecoration(
                             image: DecorationImage(
                                 image: NetworkImage(
@@ -92,10 +92,12 @@ class MovieDetailScreenState extends State<MovieDetailScreen> {
                         const SizedBox(height: 15),
                         Column(
                           children: [
-                            Text(
-                              movie.releaseDate.year.toString(),
-                              style: const TextStyle(
-                                color: Colors.grey,
+                            Center(
+                              child: Text(
+                                movie.releaseDate.year.toString(),
+                                style: const TextStyle(
+                                  color: Colors.black,
+                                ),
                               ),
                             ),
                             const SizedBox(
@@ -106,8 +108,8 @@ class MovieDetailScreenState extends State<MovieDetailScreen> {
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                               style: const TextStyle(
-                                color: Colors.grey,
-                                fontSize: 15,
+                                color: Colors.deepPurple,
+                                fontSize: 18,
                               ),
                             ),
                           ],

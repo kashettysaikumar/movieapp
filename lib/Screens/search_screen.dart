@@ -57,13 +57,13 @@ class _SearchScreenState extends State<SearchScreen> {
                 padding: const EdgeInsets.all(10.0),
                 prefixIcon: const Icon(
                   CupertinoIcons.search,
-                  color: Colors.grey,
+                  color: Colors.black,
                 ),
                 suffixIcon: const Icon(
                   Icons.cancel,
-                  color: Colors.grey,
+                  color: Colors.black,
                 ),
-                style: const TextStyle(color: Colors.white),
+                style: const TextStyle(color: Colors.black),
                 backgroundColor: Colors.grey.withOpacity(0.3),
                 onChanged: (value) {
                   if (value.isEmpty) {} else {
@@ -84,7 +84,7 @@ class _SearchScreenState extends State<SearchScreen> {
                             height: 20,
                           ),
                           const Text(
-                            "Top Searches",
+                            "Popular Searches",
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                           const SizedBox(
