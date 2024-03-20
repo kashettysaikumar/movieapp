@@ -131,7 +131,11 @@ class MovieDetailScreenState extends State<MovieDetailScreen> {
                 ],
               );
             }
-            return const SizedBox();
+            return Container(
+              height: MediaQuery.of(context).size.height,
+              child: Center(
+                  child: CircularProgressIndicator(),),
+            );
           },
         ),
       ),
