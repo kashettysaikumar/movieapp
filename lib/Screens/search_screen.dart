@@ -170,7 +170,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                 ? Column(
                                     children: [
                                       Image.asset(
-                                        "assets/netflix.png",
+                                        "assets/movie.jpg",
                                         height: 170,
                                       ),
                                       Text(
